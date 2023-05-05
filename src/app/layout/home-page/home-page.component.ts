@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-// import { BatteryData } from '../../shared/services/weather.service';
+import { BatteryData } from './../../shared/models/battery-data.model';
+import { BatteryDataService } from './../../shared/services/battery-data.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,32 +10,25 @@ import { Subscription } from 'rxjs';
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
+  batteryData: BatteryData[] = [];
 
   constructor(
-    private router: Router,
-    // private BatteryData: BatteryData,
+    private batteryDataService: BatteryDataService,
   ) { }
 
   ngOnInit(): void {
-    // this.addSearchedCity();
+    this.getBatteryData();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  // private addSearchedCity(): void {
-  //   this.subscriptions.add(
-  //     this.BatteryData.getSearchedCity().subscribe((city) => {
-  //       if (!city || this.cityIndex(city) > -1) {
-  //         return;
-  //       }
-  //       this.cities.push(city);
-  //     }),
-  //   );
-  // }
-
-  // private cityIndex(city: string): number {
-  //   return this.cities.map(v => v.toLowerCase()).indexOf(city.toLowerCase());
-  // }
+  private getBatteryData(): void {
+    this.subscriptions.add(
+      this.batteryDataService.getBatteryData().subscribe((data) => {
+       this.batteryData = data;
+      }),
+    );
+  }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BatteryData } from './../../shared/models/battery-data.model';
 
 @Component({
   selector: 'app-batteries-support',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./batteries-support.component.scss']
 })
 export class BatteriesSupportComponent {
-
+@Input() batteryData: BatteryData[] = [];
 }

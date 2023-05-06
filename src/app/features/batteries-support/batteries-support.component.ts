@@ -7,25 +7,13 @@ import { BatteryData } from './../../shared/models/battery-data.model';
   styleUrls: ['./batteries-support.component.scss']
 })
 export class BatteriesSupportComponent implements OnInit {
-  @Input() batteryData: BatteryData[] = [];
+  @Input() batteryDataByAcademyId: BatteryData[][] = [];
 
   ngOnInit(): void {
-    // const resArr: BatteryData[] = [];
+    console.log(this.batteryDataByAcademyId);
+  }
 
-    // console.log(resArr, this.batteryData)
-
-
-    // this.batteryData.filter(item => {
-    //   const i = resArr.findIndex(x => (x.serialNumber === item.serialNumber));
-    //   if (i <= -1) {
-    //     resArr.push(item);
-    //     console.log('abcd ',resArr, this.batteryData)
-
-    //   }
-
-    //   return null;
-    // });
-    // console.log(resArr, this.batteryData)
-
+  getSerialNumber(deviceData: BatteryData[]): string {
+    return deviceData[0].serialNumber;
   }
 }

@@ -1,6 +1,9 @@
-<!-- <p>
-  {{ batteryData[0].employeeId }}
-</p>
-<p>
-  {{ batteryData[0].batteryLevel }}
-</p> -->
+<div *ngFor="let deviceData of batteryDataByAcademyId">
+  <div>Device : {{ getSerialNumber(deviceData) }}</div>
+  <hr/>
+
+  <div *ngFor="let data of deviceData">
+    {{ data.batteryLevel }} --> {{ data.timestamp | date: 'medium' }}
+  </div>
+  <hr />
+</div>

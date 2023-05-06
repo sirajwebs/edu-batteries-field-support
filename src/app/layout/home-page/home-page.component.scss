@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column;
   padding: 50px;
+  color: #f2f2f2;
 }
 
 .grid-list {
   @extend .flex;
-
+  
+  align-items: flex-start;
   margin: 20px;
   padding: 20px;
   flex-wrap: wrap;

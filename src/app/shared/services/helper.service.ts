@@ -5,9 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class HelperService {
 
-  constructor() { }
-
-  groupArrayByObject(array: any[], key: string, mapByObject = false) {
+  groupArrayByObject(array: any[], key: string): Array<any[]> {
 
     const result =
       array.reduce((accumulator, currentValue) => {
@@ -19,6 +17,6 @@ export class HelperService {
         return accumulator;
       }, {});
 
-    return mapByObject ? result : Object.values(result);
+    return Object.values(result);
   }
 }

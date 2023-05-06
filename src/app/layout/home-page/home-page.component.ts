@@ -11,7 +11,8 @@ import { HelperService } from './../../shared/services/helper.service';
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
-  batteryData: BatteryData[] = [];
+  // batteryDataByAcademyId: BatteryData[][] = [];
+  batteryDataBySerialNumber: BatteryData[][][] = [];
 
   constructor(
     private batteryDataService: BatteryDataService,
@@ -26,11 +27,18 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  getAcademyId(academyData: BatteryData[][]): number {
+    return academyData[0][0].academyId;
+  }
+
   private getBatteryData(): void {
     this.subscriptions.add(
       this.batteryDataService.getBatteryData().subscribe((data) => {
-        this.batteryData = this.helperService.groupArrayByObject(data, 'serialNumber', true) as BatteryData[];
-        console.log(this.batteryData);
+        const batteryDataByAcademyId = this.helperService.groupArrayByObject(data, 'academyId');
+
+        batteryDataByAcademyId.forEach(element => {
+          this.batteryDataBySerialNumber.push(this.helperService.groupArrayByObject(element, 'serialNumber'));
+        });
       }),
     );
   }

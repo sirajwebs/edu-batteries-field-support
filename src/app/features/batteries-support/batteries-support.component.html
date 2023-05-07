@@ -1,9 +1,10 @@
 <div *ngFor="let deviceData of batteryDataByAcademyId">
   <div>Device : {{ getSerialNumber(deviceData) }}</div>
-  <hr/>
+  <hr />
 
-  <div *ngFor="let data of deviceData">
-    {{ data.batteryLevel }} --> {{ data.timestamp | date: 'medium' }}
+  <div *ngFor="let dataByDate of getAverageBattery(deviceData)">
+   Usage :  {{ dataByDate[0].batteryAverage | percent }} ---
+    {{ dataByDate[0].date | date : 'mediumDate' }}
   </div>
   <hr />
 </div>

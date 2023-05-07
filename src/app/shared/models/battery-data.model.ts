@@ -5,3 +5,8 @@ export interface BatteryData {
     serialNumber: string;
     timestamp: string;
 }
+
+export type BatteryDataExt = BatteryData & {
+    date?: string;
+    batteryAverage?: number;
+}

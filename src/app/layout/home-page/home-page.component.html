@@ -4,7 +4,7 @@
       class="grid-tile"
       *ngFor="let academyData of batteryDataBySerialNumber"
     >
-      <div>School : {{ getAcademyId(academyData) }}</div>
+      <div>Academy : {{ getAcademyId(academyData) }}</div>
       <hr/>
       <app-batteries-support
         [batteryDataByAcademyId]="academyData"

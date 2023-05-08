@@ -8,5 +8,6 @@ export interface BatteryData {
 
 export type BatteryDataExt = BatteryData & {
     date?: string;
-    batteryAverage?: number;
+    batteryAveragePerDay?: number;
+    batteryAveragePerWeek?: number;
 }

@@ -44,12 +44,12 @@ body {
   text-shadow: 1px 1px 3px #7b7b7b;
 }
 
-.underline-title {
-  border: 2px solid #fff;
-  border-radius: 50px;
-  margin-top: 5px;
-  width: 70px;
-}
+// .underline-title {
+//   border: 2px solid #fff;
+//   border-radius: 50px;
+//   margin-top: 5px;
+//   width: 70px;
+// }
 
 // .blue-snackbar {
 //   @extend .bar-bg-color;
@@ -62,22 +62,3 @@ body {
 //   @extend .blue-snackbar;
 //   background: linear-gradient(8deg, #a20707, #940b4b);
 // }
-
-/* Scroll-bar */
-::-webkit-scrollbar {
-  width: 7px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 70px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgb(30, 71, 161);
-  border-radius: 70px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(45, 34, 105);
-  border-radius: 70px;
-}
-/* Scroll-bar */

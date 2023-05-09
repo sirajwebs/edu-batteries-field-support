@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { BatteryData } from './../../shared/models/battery-data.model';
+import { BatteryData, BatteryDataExt } from './../../shared/models/battery-data.model';
 import { BatteryDataService } from './../../shared/services/battery-data.service';
 import { HelperService } from './../../shared/services/helper.service';
 
@@ -11,7 +11,7 @@ import { HelperService } from './../../shared/services/helper.service';
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
-  // batteryDataByAcademyId: BatteryData[][] = [];
+  deviceDataByDateWithAverage: BatteryDataExt[][] = [];
   batteryDataBySerialNumber: BatteryData[][][] = [];
 
   constructor(
@@ -29,6 +29,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   getAcademyId(academyData: BatteryData[][]): number {
     return academyData[0][0].academyId;
+  }
+
+  getDeviceDataByDateWithAverage(data: BatteryDataExt[][]): void {
+    this.deviceDataByDateWithAverage = data;
   }
 
   private getBatteryData(): void {

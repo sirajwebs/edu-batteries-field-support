@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BatteryData, BatteryDataExt } from './../../shared/models/battery-data.model';
 import { HelperService } from './../../shared/services/helper.service';
 
@@ -7,16 +7,13 @@ import { HelperService } from './../../shared/services/helper.service';
   templateUrl: './batteries-support.component.html',
   styleUrls: ['./batteries-support.component.scss']
 })
-export class BatteriesSupportComponent implements OnInit {
+export class BatteriesSupportComponent {
   @Input() batteryDataByAcademyId: BatteryData[][] = [];
+  @Output() deviceDataByDateWithAverage: EventEmitter<BatteryDataExt[][]> = new EventEmitter();
 
   constructor(
     private helperService: HelperService,
   ) { }
-
-  ngOnInit(): void {
-    // console.log(this.batteryDataByAcademyId);
-  }
 
   getSerialNumber(deviceData: BatteryData[]): string {
     return deviceData[0].serialNumber;
@@ -24,13 +21,13 @@ export class BatteriesSupportComponent implements OnInit {
 
   getAverageBattery(deviceData: BatteryData[]): BatteryDataExt[][] {
     /**
-     * intervals weighted by duration of 24 hours from 12AM to 12AM for each day
+     * intervals weighted by duration of 24 hours from 12AM to 11.59PM for each day
      */
     const deviceDataExt: BatteryDataExt[] = [...deviceData]
     this.sortByDateTime(deviceDataExt).map(item => {
       item['date'] = item.timestamp.split('T')[0];
       return item;
-    });;
+    });
     const deviceDataByDate: BatteryDataExt[][] = this.helperService.groupArrayByObject(deviceDataExt, 'date');
     let totalUsagePerWeek = 0;
     let dayIndex = 0;
@@ -52,24 +49,34 @@ export class BatteriesSupportComponent implements OnInit {
     });
 
     deviceDataByDate[0][0].batteryAveragePerWeek = totalUsagePerWeek / dayIndex;
-    console.log(deviceDataByDate);
+    this.deviceDataByDateWithAverage.emit(deviceDataByDate);
 
     return deviceDataByDate;
   }
 
-  getDayMultiplier(dataByDate: BatteryDataExt[]): number {
+  batteryNeedsReplacement(percentData: number | undefined): string {
+    if (percentData === undefined) {
+      return '';
+    } else if (percentData < 0.3) {
+      return '';
+    } else {
+      return '*** Replace Battery';
+    }
+  }
+
+  private getDayMultiplier(dataByDate: BatteryDataExt[]): number {
     /**
      * if total calulated time interval is less than 12 hours then multiply the average battery usage by 2 for 24 hours
      */
     const date1 = new Date(dataByDate[0].timestamp).getTime();
     const date2 = new Date(dataByDate[dataByDate.length - 1].timestamp).getTime();
-    var diff = Math.abs(date1 - date2) / 3600000;
+    const diff = Math.abs(date1 - date2) / 3600000;
 
     if (diff <= 12) { return 2 }
     return 1;
   }
 
-  sortByDateTime(deviceData: BatteryDataExt[]): BatteryDataExt[] {
+  private sortByDateTime(deviceData: BatteryDataExt[]): BatteryDataExt[] {
     deviceData.sort(function (a, b) {
       return (new Date(a.timestamp)).getTime() - (new Date(b.timestamp)).getTime();
     });

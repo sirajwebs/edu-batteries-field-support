@@ -1,13 +1,25 @@
 <div class="content">
   <div class="grid-list">
+    <div class="grid-tile">
+      NOTE : Intervals weighted by duration of 24 hours from 12AM to 11.59PM for
+      each day. If total calulated time interval (recorded data in a day) is
+      less than 12 hours then the average battery usage is doubled for 24 hours.
+      <p>
+        Batteries that needs replacement are marked with
+        <span class="red-text">&nbsp;RED&nbsp;</span> background, otherwise
+        in <span class="green-text">&nbsp;GREEN&nbsp;</span>  background.
+      </p>
+    </div>
     <div
       class="grid-tile"
       *ngFor="let academyData of batteryDataBySerialNumber"
     >
-      <div>Academy : {{ getAcademyId(academyData) }}</div>
-      <hr/>
+      <div class="academy">Academy ID : {{ getAcademyId(academyData) }}</div>
+      <hr />
       <app-batteries-support
+        class="content-batteries"
         [batteryDataByAcademyId]="academyData"
+        (deviceDataByDateWithAverage)="getDeviceDataByDateWithAverage($event)"
       ></app-batteries-support>
     </div>
   </div>

@@ -1,21 +1,20 @@
-<div *ngFor="let deviceData of batteryDataByAcademyId">
-  <div>Device : {{ getSerialNumber(deviceData) }}</div>
-  <hr />
-
+<div *ngFor="let deviceData of batteryDataByAcademyId" class="grid-list">
+  <div class="device">Device : {{ getSerialNumber(deviceData) }}</div>
   <div *ngFor="let dataByDate of getAverageBattery(deviceData); let i = index">
-    <div *ngIf="i === 0">
-      Average Usage per Day :
+    <div
+      *ngIf="i === 0"
+      class="green"
+      [class.red]="batteryNeedsReplacement(dataByDate[0].batteryAveragePerWeek)"
+    >
+      <hr />
+      Avg. Usage per Day :
       {{ dataByDate[0].batteryAveragePerWeek | percent }}
+      {{ batteryNeedsReplacement(dataByDate[0].batteryAveragePerWeek) }}
       <hr />
     </div>
-    Usage :
-    {{ dataByDate[0].batteryAveragePerDay | percent }} ---
-    {{ dataByDate[0].date | date : "mediumDate" }}
+    <div class="usage">
+      {{ dataByDate[0].batteryAveragePerDay | percent }} ---
+      {{ dataByDate[0].date | date : "mediumDate" }}
+    </div>
   </div>
-  <hr />
-
-  <!-- <div *ngFor="let data of sortByDateTime(deviceData)">
-    {{ data.batteryLevel | percent }} --- {{ data.timestamp | date : "medium" }}
-  </div>
-  <hr /> -->
 </div>

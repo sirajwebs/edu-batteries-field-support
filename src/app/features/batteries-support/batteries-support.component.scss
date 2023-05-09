@@ -27,3 +27,10 @@
 .usage {
   font-size: small;
 }
+
+@media screen and (max-width: 768px) {
+  .grid-list {
+    flex-basis: 100%;
+    margin: 5px;
+  }
+}

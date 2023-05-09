@@ -11,7 +11,8 @@ This application show the battery data with average usage for a week and indicat
 NOTE : Intervals weighted by duration of 24 hours from 12AM to 11.59PM for each day. If total calulated time interval (recorded data in a day) is less than 12 hours then the average battery usage is doubled for 24 hours.
 Batteries that needs replacement are marked with  RED  background, otherwise in  GREEN  background.
 
-Application is compatible (with tested) for desktop Chrome only.
+Application is compatible with all screen sizes mobile, tablet, desktop.
+With cross browser compatibility like Chrome, Safari, Edge.
 
 ## View live demo at :
 https://edu-batteries-field-support.web.app/

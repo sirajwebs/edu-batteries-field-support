@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BatteryData, BatteryDataExt } from './../../shared/models/battery-data.model';
 import { HelperService } from './../../shared/services/helper.service';
 
@@ -9,7 +9,6 @@ import { HelperService } from './../../shared/services/helper.service';
 })
 export class BatteriesSupportComponent {
   @Input() batteryDataByAcademyId: BatteryData[][] = [];
-  @Output() deviceDataByDateWithAverage: EventEmitter<BatteryDataExt[][]> = new EventEmitter();
 
   constructor(
     private helperService: HelperService,
@@ -49,7 +48,6 @@ export class BatteriesSupportComponent {
     });
 
     deviceDataByDate[0][0].batteryAveragePerWeek = totalUsagePerWeek / dayIndex;
-    this.deviceDataByDateWithAverage.emit(deviceDataByDate);
 
     return deviceDataByDate;
   }

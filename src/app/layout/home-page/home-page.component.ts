@@ -38,8 +38,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
         batteryDataByAcademyId.forEach(element => {
           this.batteryDataBySerialNumber.push(this.helperService.groupArrayByObject(element, 'serialNumber'));
         });
-
-        console.log(this.batteryDataBySerialNumber);
       }),
     );
   }
